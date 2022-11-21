@@ -28,3 +28,12 @@ to debug.
     - /home/developer//buildroot2017.02.4/output/staging//lib
     - /home/developer//buildroot2017.02.4/output/staging/usr/lib/freerdp
 - Apply all of the settings
+
+
+### Sample gdbinit file
+
+```sh
+set sysroot /home/developer/buildroot-2017.02.4/output/staging
+set solib-search-path /home/developer/buildroot/buildroot-2017.02.4/output/staging/usr/lib
+
+```
