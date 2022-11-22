@@ -35,7 +35,7 @@ __Note__: auto-load safe-path
 - Recent versions of GDB ignore .gdbinit unless you enable it in $HOME/.gdbinit with the following line: 
 
 ```sh
-add-auto-load-safe-path /home/myname/myproject/.gdbinit
+add-auto-load-safe-path /home/developer/myproject/.gdbinit
 ```
 
 __example__
@@ -46,3 +46,4 @@ set sysroot /home/developer/buildroot-2017.02.4/output/staging
 set solib-search-path /home/developer/buildroot/buildroot-2017.02.4/output/staging/usr/lib
 
 ```
+
