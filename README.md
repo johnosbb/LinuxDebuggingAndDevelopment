@@ -81,6 +81,14 @@ set solib-search-path /home/developer/buildroot/buildroot-2017.02.4/output/stagi
 
 The default value for the set sysroot variable depends on your toolchain. If your GDB binary was compiled with the --sysroot argument, you won't need to run the set sysroot command - the sysroot will be automatically set to the location specified during compilation. Otherwise the default value will be "" and you might need to set it manually if you are debugging remote processes.
 
+You can check if the compiler knows the location of sysroot with:
+
+```sh
+/home/snuc/debugging-labs/buildroot/output/host/usr/bin/arm-linux-gcc  --print-sysroot
+# output
+/home/snuc/debugging-labs/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot
+```
+
 ### How to check if Symbols are present in binary
 
 ```sh
