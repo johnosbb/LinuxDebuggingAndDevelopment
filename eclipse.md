@@ -38,6 +38,8 @@ __Note__: auto-load safe-path
 add-auto-load-safe-path /home/myname/myproject/.gdbinit
 ```
 
+__example__
+
 ```sh
 add-auto-load-safe-path /home/developer/myproject/.gdbinit
 set sysroot /home/developer/buildroot-2017.02.4/output/staging
