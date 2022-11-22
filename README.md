@@ -3,8 +3,8 @@ Embedded Linux Debugging And Development
 
 ## References
 
-- [Debugging with gdb](https://elinux.org/images/0/01/Debugging-with-gdb-csimmonds-elce-2020.pdf)
-- [Debugging with gdb - video](https://www.youtube.com/watch?v=JGhAgd2a_Ck)
+- [Debugging with gdb - Chris Simmonds](https://elinux.org/images/0/01/Debugging-with-gdb-csimmonds-elce-2020.pdf)
+- [Debugging with gdb - Youtube, Chris Simmonds](https://www.youtube.com/watch?v=JGhAgd2a_Ck)
 
 
 ## Remote Debugging
