@@ -103,6 +103,18 @@ In buildroot the staging area is a symbolic link to the sysroot: /home/snuc/debu
 readelf --debug-dump=decodedline $1
 ```
 
+
+### Dealing with Optimisation when Debugging
+
+Optimisation can make debugging with gdb difficult. There are a number of options:
+1. Turn off optimisation completely by using the -O0 flag
+2. Enable gdb friendly optimisation by using the -Og flag
+3. Annotate a specific function with: 
+```c
+__attribute__((optimize("O0")))
+``
+
+
 # Assembly Language Tool Online
 
 - [Online Tool](https://godbolt.org/)
