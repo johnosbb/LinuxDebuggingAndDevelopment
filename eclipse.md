@@ -26,12 +26,17 @@ to debug.
 
 ### Sample gdbinit file
 
-```sh
-set sysroot /home/developer/buildroot-2017.02.4/output/staging
-set solib-search-path /home/developer/buildroot/buildroot-2017.02.4/output/staging/usr/lib
+At start-up GDB reads commands from
+- $HOME/.gdbinit
+- .gdbinit in current directory
+- Files named by gdb command line option -x [file name]
+ 
+__Note__: auto-load safe-path
+- Recent versions of GDB ignore .gdbinit unless you enable it in $HOME/.gdbinit with the following line: 
 
+```sh
+add-auto-load-safe-path /home/myname/myproject/.gdbinit
 ```
-Note: Recent security changes in GDB require us to add the line: add-auto-load-safe-path /home/myname/myproject/.gdbinit to our gdbinit file
 
 ```sh
 add-auto-load-safe-path /home/developer/myproject/.gdbinit
