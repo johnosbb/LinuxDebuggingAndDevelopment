@@ -1,10 +1,10 @@
 # Linux Debugging And Development
 Linux Debugging And Development
 
-# VSCode
 
-- [Setting up Remote Debugging](https://opencoursehub.cs.sfu.ca/bfraser/grav-cms/cmpt433/guides/files/DebuggingGuide.pdf)
-
+## Remote Debugging
+### VSCode
+- [References: Setting up Remote Debugging](https://opencoursehub.cs.sfu.ca/bfraser/grav-cms/cmpt433/guides/files/DebuggingGuide.pdf)
 - Install the native debugger
 - ![image](https://user-images.githubusercontent.com/12407183/203298495-6a8a42cc-7903-4c2b-8356-4763b9bd44ab.png)
 - Create a debug configuration launch.json file:
@@ -39,9 +39,9 @@ Linux Debugging And Development
 ```sh
 gdbserver localhost:2000 /usr/bin/linked_list
 ```
-# Eclipse
+### Eclipse
 
-## Eclipse Debugging
+#### Eclipse Debugging
 - Create a new project for the code you wish to debug in Eclipse -> select File->New->Makefile
 Project With Existing Code
 - Set up a remote debug session with gdb, go to Run and select Debug Configurations
@@ -63,7 +63,7 @@ to debug.
 - Apply all of the settings
 
 
-### Sample gdbinit file
+#### Sample gdbinit file
 
 ```sh
 set sysroot /home/developer/buildroot-2017.02.4/output/staging
@@ -76,7 +76,7 @@ set solib-search-path /home/developer/buildroot/buildroot-2017.02.4/output/stagi
 
 The default value for the set sysroot variable depends on your toolchain. If your GDB binary was compiled with the --sysroot argument, you won't need to run the set sysroot command - the sysroot will be automatically set to the location specified during compilation. Otherwise the default value will be "" and you might need to set it manually if you are debugging remote processes.
 
-## How to check if Symbols are present in binary
+### How to check if Symbols are present in binary
 
 ```sh
 readelf --debug-dump=decodedline $1
