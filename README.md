@@ -112,7 +112,7 @@ Optimisation can make debugging with gdb difficult. There are a number of option
 3. Annotate a specific function with: 
 ```c
 __attribute__((optimize("O0")))
-``
+```
 
 
 # Assembly Language Tool Online
