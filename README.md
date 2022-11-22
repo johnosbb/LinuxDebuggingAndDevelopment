@@ -9,7 +9,8 @@ Embedded Linux Debugging And Development
 
 ## Remote Debugging
 
-[Remote Debugging with VSCode](vscode.md)
+- [Remote Debugging with VSCode](vscode.md)
+- [Remote Debugging with Eclipse](eclipse.md)
 
 
 ### Eclipse
