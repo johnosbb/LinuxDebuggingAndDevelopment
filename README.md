@@ -39,6 +39,10 @@ set solib-search-path /home/developer/buildroot/buildroot-2017.02.4/output/stagi
 ```
 
 
+### Note on using set sysroot
+
+The default value for the set sysroot variable depends on your toolchain. If your GDB binary was compiled with the --sysroot argument, you won't need to run the set sysroot command - the sysroot will be automatically set to the location specified during compilation. Otherwise the default value will be "" and you might need to set it manually if you are debugging remote processes.
+
 # Assembly Language
 
 - [Online Tool](https://godbolt.org/)
