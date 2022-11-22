@@ -31,4 +31,11 @@ set sysroot /home/developer/buildroot-2017.02.4/output/staging
 set solib-search-path /home/developer/buildroot/buildroot-2017.02.4/output/staging/usr/lib
 
 ```
+Note: Recent security changes in GDB require us to add the line: add-auto-load-safe-path /home/myname/myproject/.gdbinit to our gdbinit file
 
+```sh
+add-auto-load-safe-path /home/developer/myproject/.gdbinit
+set sysroot /home/developer/buildroot-2017.02.4/output/staging
+set solib-search-path /home/developer/buildroot/buildroot-2017.02.4/output/staging/usr/lib
+
+```
