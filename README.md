@@ -89,6 +89,14 @@ You can check if the compiler knows the location of sysroot with:
 /home/snuc/debugging-labs/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot
 ```
 
+#### Sysroot in Buildroot
+
+In buildroot the staging area is a symbolic link to the sysroot: /home/snuc/debugging-labs/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot
+
+```sh
+/home/snuc/debugging-labs/buildroot/output/staging -> /home/snuc/debugging-labs/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot
+```
+
 ### How to check if Symbols are present in binary
 
 ```sh
