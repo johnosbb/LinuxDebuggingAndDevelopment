@@ -18,6 +18,7 @@ gdb-multiarch -tui -x gdbinit_local ./linked_list
 ```
 
 Then from gdb
+
 ![image](https://user-images.githubusercontent.com/12407183/203612203-b3961300-5d4a-4f40-b266-255ab572181f.png)
 
 
