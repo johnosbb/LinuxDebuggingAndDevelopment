@@ -52,3 +52,11 @@ It will produce a segmentation fault (core dumped) as it crashes. Copy this file
 gdb-multiarch <program_binary> <coredump_file>
 ```
 
+Set the sysroot location in GDB
+
+```sh
+set sysroot /home/snuc/debugging-labs/buildroot/output/staging
+
+```
+
+
