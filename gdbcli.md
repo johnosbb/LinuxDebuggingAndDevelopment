@@ -1,2 +1,0 @@
-# GDB Command Line Debugging
-
