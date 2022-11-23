@@ -15,7 +15,7 @@ If the library you are tracing is not in the standard library locations then we 
 ```sh
 export LD_LIBRARY_PATH=$PWD
 ```
-__LD_LIBRARY_PATH__ is an environmental variable used in Linux/UNIX Systems. It is used to tell dynamic link loaders where to look for shared libraries for specific applications.
+__LD_LIBRARY_PATH__ is an environmental variable used in Linux/UNIX Systems. It is used to tell dynamic link loaders where to look for shared libraries for specific applications. It will designate additionnal path to be searched for library loading. By default, the dynamic loader will search for some paths like /etc/ld.so.cache, /lib and /usr/lib
 
 
 Example usage for an application (called app) with shared library linkage:
