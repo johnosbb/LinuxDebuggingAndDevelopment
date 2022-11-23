@@ -1,5 +1,8 @@
 # Tracing on Linux Systems
 
+## Reference
+
+- [Brendan Gregg](https://www.brendangregg.com/perf.html)
 
 ## ltrace
 
