@@ -9,14 +9,17 @@ Embedded Linux Debugging And Development
 
 ## Debugging
 
+- [GDB Command line Debugging](gdb.md)
 - [Debugging with Core Dumps](coredump.md)
+- [Comand Line Options for Segmentation Faults](segmentation.md)
 
 
 ### Remote Debugging Options
 
 - [Remote Debugging with VSCode](vscode.md)
 - [Remote Debugging with Eclipse](eclipse.md)
-- [Comand Line Options for Segmentation Faults](segmentation.md)
+- [Remote Debugging with GDB Command Line Tools](gdb_remote.md)
+
 
 
 ### Note on using set sysroot
