@@ -11,7 +11,7 @@ and more information when your program does generate a segfault.
 for example
 
 ```sh
-$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libSegFault.so ./segfault
+$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libSegFault.so ./SegmentingApplication
 ```
 
 If you are using buildroot then the file can be found in 
