@@ -100,7 +100,33 @@ exit_group(0)                           = ?
 +++ exited with 0 +++
  
  ```
+ It also supports the -c option which counts time, calls, and errors for each system call.
  
+ ```sh
+ # strace -c ./binary_program_to_trace 
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 43.93    0.020912         550        38        34 openat
+ 24.62    0.011722         355        33        30 statx
+ 17.78    0.008465        8465         1           execve
+  3.32    0.001581         395         4           mprotect
+  2.93    0.001397         349         4           mmap2
+  1.17    0.000556         278         2           kill
+  0.97    0.000461         230         2           close
+  0.95    0.000451         451         1           sigreturn
+  0.72    0.000343         343         1         1 access
+  0.63    0.000299         299         1           read
+  0.48    0.000229         229         1           rt_sigaction
+  0.45    0.000215         215         1           ugetrlimit
+  0.43    0.000206         206         1           set_tls
+  0.42    0.000201         201         1           getpid
+  0.40    0.000191         191         1           brk
+  0.40    0.000190         190         1           set_tid_address
+  0.39    0.000188         188         1           set_robust_list
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.047607         506        94        65 total
+
+ ```
  
 ## Hooking symbols and overloading library calls
 
