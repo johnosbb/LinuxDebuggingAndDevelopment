@@ -3,9 +3,23 @@
 
 ## Using the multi option with gdb
 
+You can start gdbserver without supplying an initial command to run or process ID to attach. To do this, use the --multi command line option. Then you can connect using target extended-remote and start the program you want to debug (using the run command). Note that the conditions under which gdbserver terminates depend on how GDB connects to it (target remote or target extended-remote). The --multi option to gdbserver has no influence on that.
 
+### The run command
 
+With target remote mode: The run command is not supported. Once a connection has been established, you can use all the usual GDB commands to examine and change data. The remote program is already running, so you can use commands like step and continue.
 
+With target extended-remote mode: The run command is supported. The run command uses the value set by set remote exec-file (see set remote exec-file) to select the program to run. Command line arguments are supported, except for wildcard expansion and I/O redirection (see Arguments).
+
+If you specify the program to debug on the command line, then the run command is not required to start execution, and you can resume using commands like step and continue as with target remote mode.
+
+### Attaching
+
+With target remote mode: The GDB command attach is not supported. To attach to a running program using gdbserver, you must use the --attach option (see Running gdbserver).
+
+With target extended-remote mode: To attach to a running program, you may use the attach command after the connection has been established. If you are using gdbserver, you may also invoke gdbserver using the --attach option (see Running gdbserver).
+
+Some remote targets allow GDB to determine the executable file running in the process the debugger is attaching to. In such a case, GDB uses the value of exec-file-mismatch to handle a possible mismatch between the executable file name running in the process and the name of the current exec-file loaded by GDB (see set exec-file-mismatch).
 
 ## Defining your own commands
 
