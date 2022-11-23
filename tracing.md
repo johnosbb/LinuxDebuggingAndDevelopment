@@ -57,3 +57,10 @@ Failed to authenticate user
 In order to do some more complex library call hooks, one can use the LD_PRELOAD environment variable. LD_PRELOAD is used to specify a shared library that will be loaded before any other library by the dynamic loader. This facility allows us to intercept all library calls by preloading another library with symbols that have the same name and signature.
 This is the technique used by libraries like libsegfault and libefence. The technique works for both C and C++.
 
+Example usage
+
+```sh
+LD_PRELOAD=my_overload_library.so ./application_to_overload
+```
+
+
