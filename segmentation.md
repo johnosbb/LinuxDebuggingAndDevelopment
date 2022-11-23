@@ -23,10 +23,21 @@ If you are using buildroot then the file can be found in
 
 ## Using Core Dumps
 
+When an application crashes due to a segmentation fault and the application was not under control of a debugger, we get no information about the crash; however, Linux can generate a core file that contains the image of the application memory at the moment of the crash, and gdb can use this core file to let us analyze the state of the crashed application
+
+To enable core dumping on the target we can use the following command:
+
 To enable core dumps 
 
 ```sh
 ulimit -c unlimited
+```
+
+
+If required the output name for the coredump file can be modified by writing to:
+
+```sh
+/proc/sys/kernel/core_pattern.
 ```
 
 Then, run the program normally:
