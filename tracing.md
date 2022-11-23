@@ -52,6 +52,56 @@ Failed to authenticate user
 100.00    0.129405                     8 total
 ```
 
+
+
+## strace
+
+strace is a diagnostic, debugging and instructional userspace utility for Linux. It is used to monitor and tamper with interactions between processes and the Linux kernel, which include system calls, signal deliveries, and changes of process state.
+
+System administrators, diagnosticians and trouble-shooters will find it invaluable for solving problems with programs for which the source is not readily available since they do not need to be recompiled in order to trace them.
+
+- [System call tracer](https://strace.io)
+- Available on all GNU/Linux systems
+- Can be built by your cross-compiling toolchain generator or by a build system.
+- Allows to see what any of your processes is doing: accessing files, allocating memory... Often sufficient to find simple bugs.
+
+### Usage:
+
+- strace <command> (starting a new process)
+- strace -f <command> (follow child processes too)
+- strace -p <pid> (tracing an existing process)
+- strace -c <command> (time statistics per system call)
+
+ example
+ 
+ ```sh
+ strace ./binary_program_to_trace
+ ```
+ 
+ __Note__: strace will trace the calls of the dynamic linker as the program launches, so exclude these from your analysis
+ 
+ ```sh
+execve("./binary_program_to_trace", ["./binary_program_to_trace"], 0xbedd8e30 /* 12 vars */) = 0
+brk(NULL)                               = 0x4c2000
+mmap2(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb6f2f000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+...
+kill(0, SIGALRM)                        = 0
+--- SIGALRM {si_signo=SIGALRM, si_code=SI_USER, si_pid=187, si_uid=0} ---
+sigreturn({mask=[]})   <-------------------------- dynamic linker code ends here
+openat(AT_FDCWD, "/etc/init.d/S20urandom", O_RDONLY|O_LARGEFILE) = 5 <-------------------------- actual program calls start here on this line
+openat(AT_FDCWD, "/etc/config", O_RDONLY|O_LARGEFILE) = -1 ENOENT (No such file or directory)
+close(4)                                = 0
+kill(1, SIGABRT)                        = 0
+getpid()                                = 187
+statx(AT_FDCWD, "/lib/libdl.so.2", AT_STATX_SYNC_AS_STAT|AT_SYMLINK_NOFOLLOW|AT_NO_AUTOMOUNT, STATX_BASIC_STATS, {stx_mask=STATX_BASIC_STATS|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0755, stx_size=7364, 
+...}) = 0
+exit_group(0)                           = ?
++++ exited with 0 +++
+ 
+ ```
+ 
+ 
 ## Hooking symbols and overloading library calls
 
 In order to do some more complex library call hooks, one can use the LD_PRELOAD environment variable. LD_PRELOAD is used to specify a shared library that will be loaded before any other library by the dynamic loader. This facility allows us to intercept all library calls by preloading another library with symbols that have the same name and signature.
