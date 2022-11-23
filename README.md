@@ -7,6 +7,11 @@ Embedded Linux Debugging And Development
 - [Debugging with gdb - Youtube, Chris Simmonds](https://www.youtube.com/watch?v=JGhAgd2a_Ck)
 
 
+## Debugging
+
+- [Debugging with Core Dumps](coredump.md)
+
+
 ### Remote Debugging Options
 
 - [Remote Debugging with VSCode](vscode.md)
