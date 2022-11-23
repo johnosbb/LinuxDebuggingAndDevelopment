@@ -19,3 +19,25 @@ If you are using buildroot then the file can be found in
 ```sh
 ./output/host/usr/arm-buildroot-linux-gnueabihf/sysroot/lib/libSegFault.so
 ```
+
+
+## Using Core Dumps
+
+To enable core dumps 
+
+```sh
+ulimit -c unlimited
+```
+
+Then, run the program normally:
+
+```sh
+$ ./program_to_debug
+```
+
+It will produce a segmentation fault (core dumped) as it crashes. Copy this file to your host system then use gdb-multiarch.
+
+```sh
+gdb-multiarch <program_binary> <coredump_file>
+```
+
