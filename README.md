@@ -7,11 +7,11 @@ Embedded Linux Debugging And Development
 - [Debugging with gdb - Youtube, Chris Simmonds](https://www.youtube.com/watch?v=JGhAgd2a_Ck)
 
 
-## Remote Debugging
+### Remote Debugging Options
 
 - [Remote Debugging with VSCode](vscode.md)
 - [Remote Debugging with Eclipse](eclipse.md)
-
+- [Comand Line Options for Segmentation Faults](segmentation.md)
 
 
 ### Note on using set sysroot
