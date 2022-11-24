@@ -1,5 +1,14 @@
 # Tracing on Linux Systems
 
+## Introduction
+
+Tracing allows us to follow the execution flow of an application and to understand the bottlenecks and problems. It is achieved by instrumenting code either at compile time or runtime and can be done using specific tracers such as LTTng, trace-cmd, SystemTap etc
+
+Ideally we want tracing to go from the user space called functions down to the kernel ones. Tracing allows us to identify functions and values that are used while our application executes. Typically tracing works by recording traces during runtime and then visualizing data; this implies a large amount of recorded data since the complete execution trace is recorded; this tracing often has a bigger overhead than profiling.
+
+Tracing can also be used for debugging purpose since data can be extracted with tracepoints.
+
+
 ## Reference
 
 - [Brendan Gregg's Site](https://www.brendangregg.com/perf.html)
