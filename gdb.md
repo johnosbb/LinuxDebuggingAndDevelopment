@@ -28,7 +28,23 @@ We can manipulate program execution with the following commands:
 
 ```gdb
 break foobar (b)
-#Put a breakpoint at the entry of function foobar()
+# Put a breakpoint at the entry of function foobar()
+break foobar.c:42
+# Put a breakpoint in foobar.c, line 42
+print var, print $reg or print task->files[0].fd (p)
+# Print the variable var, the register $reg or a more complicated reference. GDB can also display structures with all their members in a human readable format
+info registers (b)
+#Display architecture registers
+continue (c)
+# Continue the execution after a breakpoint
+next (n)
+# Continue to the next line, stepping over function calls
+step (s)
+# Continue to the next line, entering into subfunctions
+stepi (s)
+# Continue to the next instructions
+backtrace (bt)
+# Display the program stack
 ```
 
 ## Using the multi option with gdb
