@@ -1,5 +1,35 @@
 # Debugging with GDB command line
 
+# Reference
+
+- [GDB on Wikipedia](https://en.wikipedia.org/wiki/Gdb)
+- [GDB Project](https://www.sourceware.org/gdb/)
+
+## Basic Command Line Operation
+
+GDB is used mainly to debug a process by starting it with gdb
+
+```sh
+  gdb <program_binary_to_debug>
+```
+
+GDB can also be attached to running processes using the program PID
+
+```sh
+  gdb -p <pid_of_program_binary_to_debug>
+```
+When using GDB to start a program, the program needs to be run with
+```sh
+(gdb) run
+```
+
+We can manipulate program execution with the following commands:
+
+
+```gdb
+break foobar (b)
+#Put a breakpoint at the entry of function foobar()
+```
 
 ## Using the multi option with gdb
 
