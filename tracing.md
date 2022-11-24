@@ -11,6 +11,13 @@
 The ptrace mechanism allows processes to trace other processes by accessing their trace memory and register contents. A tracer can observe and control the execution state of another process. It works by attaching to a target process using the [ptrace](https://man7.org/linux/man-pages/man2/ptrace.2.html) system call. 
 It is often used indirectly using other tools like GDB, strace and all debugging tools that needs access to the trace information and process state.
 
+```c
+       #include <sys/ptrace.h>
+
+       long ptrace(enum __ptrace_request request, pid_t pid,
+                   void *addr, void *data);
+```
+
 
 ## ltrace
 
