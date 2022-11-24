@@ -1,12 +1,16 @@
 # Performance
 
-## Perf
+## perf
 
 The [perf](https://man7.org/linux/man-pages/man1/perf.1.html) tool was started as a tool to profile application under Linux using performance counters. It has evolved into a more general purpose tool and now it allows a user to insert tracepoints, kprobes and
 uprobes. Perf can profile both user-space and kernel-space execution and is based on the perf_event interface that is exposed by the kernel.
 
 Perf provides a set of operations that each have specific arguments:  stat, record, report, top, annotate, ftrace, list, probe, etc
 
+
+To use perf, the kernel needs to be configured with CONFIG_PERF_EVENTS=y.
+
+![image](https://user-images.githubusercontent.com/12407183/203774000-245735b0-2835-4cb2-9cc0-baa358795c07.png)
 
 ### perf record
 - Perf record allows to record performance events per-thread, per-process and per-cpu basis.
