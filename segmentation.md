@@ -21,3 +21,11 @@ If you are using buildroot then the file can be found in
 ```
 
 
+## Backtrace
+
+Displaying a backtrace from within your application at the point of the crash, is useful to debug and can be done using the [backtrace](https://man7.org/linux/man-pages/man3/backtrace.3.html) GNU extension
+
+```c
+char **backtrace_symbols(void *const *buffer, int size);
+```
+For the backtrace_symbols() function to work, you'll need a frame pointer and a symbol table (which can be compiled in with -rdynamic). There should be no need to use the -g (debug info) cflag.
