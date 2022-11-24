@@ -20,7 +20,9 @@ Embedded Linux Debugging And Development
 - [Remote Debugging with Eclipse](eclipse.md)
 - [Remote Debugging with GDB Command Line Tools](gdb_remote.md)
 
+### Tracing
 
+- [Tracing on Linux](tracing.md)
 
 ### Note on using set sysroot
 
