@@ -32,20 +32,13 @@ There are debug facilities to be used in drivers integrated with the Linux devic
 - They take a pointer to struct device as first argument, and then a format string with arguments and are defined in include/linux/dev_printk.h
 - Example: dev_info(&pdev->dev, "in probe\n"); This will produce [ 25.884873] serial 481a8000.serial: in probe
 
-pr_debug() and dev_dbg()
-▶ When the driver is compiled with DEBUG defined, all these messages are compiled
-and printed at the debug level. DEBUG can be defined by #define DEBUG at the
-beginning of the driver, or using ccflags-$(CONFIG_DRIVER) += -DDEBUG in the
-Makefile
-▶ When the kernel is compiled with CONFIG_DYNAMIC_DEBUG, then these messages
-can dynamically be enabled on a per-file, per-module or per-message basis
-• Details in admin-guide/dynamic-debug-howto
-• Very powerful feature to only get the debug messages you’re interested in.
-▶ When neither DEBUG nor CONFIG_DYNAMIC_DEBUG are used, these messages are not
-compiled in.
 
-If we use CONFIG_DYNAMIC_DEBUG we can enable with sysctrl interface
+## Enabling Debug
 
-/sys/kernel/debug/dynamic_debug/control
+The pr_debug() and dev_dbg() macros are enabled when the driver is compiled with DEBUG defined. This can be done by #define DEBUG at the beginning of the driver, or using ccflags-$(CONFIG_DRIVER) += -DDEBUG in the Makefile.
 
-kernel debug info can be stripped afterwards
+When the kernel is compiled with CONFIG_DYNAMIC_DEBUG, then these messages can [dynamically](https://www.kernel.org/doc/Documentation/admin-guide/dynamic-debug-howto.rst) be enabled on a per-file, per-module or per-message basis. 
+
+If we use CONFIG_DYNAMIC_DEBUG we can enable on-demand debugging with sysctrl interface by echoing the appropriate strings to /sys/kernel/debug/dynamic_debug/control
+
+
