@@ -29,3 +29,10 @@ Displaying a backtrace from within your application at the point of the crash, i
 char **backtrace_symbols(void *const *buffer, int size);
 ```
 For the backtrace_symbols() function to work, you'll need a frame pointer and a symbol table (which can be compiled in with -rdynamic). There should be no need to use the -g (debug info) cflag.
+
+
+## libunwind
+
+The primary goal of the libunwind project is to define a portable and efficient C programming interface (API) to determine the call-chain of a program. The API additionally provides the means to manipulate the preserved (callee-saved) state of each call-frame and to resume execution at any point in the call-chain (non-local goto). The API supports both local (same-process) and remote (across-process) operation. As such, the API is useful in a number of applications.
+
+- [libunwind](https://www.nongnu.org/libunwind/index.html)
