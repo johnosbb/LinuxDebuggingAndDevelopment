@@ -45,6 +45,6 @@ If we use CONFIG_DYNAMIC_DEBUG we can enable on-demand debugging with sysctrl in
 
 Compiling the kernel generates a number of files that can assist in debugging the kernel:
 - [vmlinux](https://en.wikipedia.org/wiki/Vmlinux): This is a statically linked executable file that contains the Linux kernel in one of the object file formats supported by Linux Kernel (ELF for example). It is used for debug and to derivate other images
-- System.map: A symbol table is a look-up between symbol names and their addresses in memory. A symbol name may be the name of a variable or the name of a function. The System.map is required when the address of a symbol name, or the symbol name of an address, is needed. It is especially useful for debugging kernel panics and kernel oopses. Contain a list of addresses/symbols that are embedded in the kernel
+- [system.map](https://en.wikipedia.org/wiki/System.map#:~:text=In%20Linux%2C%20the%20System.,the%20name%20of%20a%20function.): A symbol table is a look-up between symbol names and their addresses in memory. A symbol name may be the name of a variable or the name of a function. The System.map is required when the address of a symbol name, or the symbol name of an address, is needed. It is especially useful for debugging kernel panics and kernel oopses. Contain a list of addresses/symbols that are embedded in the kernel
 - vmlinux-gdb.py: Scripts to assist kernel debugging with GDB
 
