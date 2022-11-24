@@ -30,8 +30,11 @@ There are debug facilities to be used in drivers integrated with the Linux devic
 
 - The dev_*() family of functions: dev_emerg(), dev_alert(), dev_crit(),dev_err(), dev_warn(), dev_notice(), dev_info() and the special dev_dbg()
 - They take a pointer to struct device as first argument, and then a format string with arguments and are defined in include/linux/dev_printk.h
-- Example: dev_info(&pdev->dev, "in probe\n"); This will produce [ 25.884873] serial 481a8000.serial: in probe
+- Example: dev_info(&pdev->dev, "in probe\n"); This will produce:
 
+```sh
+   [ 25.884873] serial 481a8000.serial: in probe
+````
 
 ## Enabling Debug
 
