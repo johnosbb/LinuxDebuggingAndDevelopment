@@ -7,6 +7,10 @@ Embedded Linux Debugging And Development
 - [Debugging with gdb - Youtube, Chris Simmonds](https://www.youtube.com/watch?v=JGhAgd2a_Ck)
 
 
+## Prevention Strategies
+
+- [Static Analysis](prevention.md)
+
 ## Debugging
 
 - [GDB Command line Debugging](gdb.md)
