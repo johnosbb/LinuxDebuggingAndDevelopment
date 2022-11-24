@@ -1,5 +1,6 @@
 # Remote Debugging with GDB Command Line
 
+## Ethernet based
 
 On the target side we run:
 
@@ -26,3 +27,19 @@ Then from gdb
 target extended-remote 192.168.0.100:2000
 ```
 
+
+## Serial Based
+
+On the target 
+```sh
+gdbserver /dev/ttyS0 <executable> <args>
+```
+On the host
+
+```sh
+
+gdb> target remote /dev/ttyUSB0 
+
+```
+  
+  
