@@ -5,6 +5,8 @@
 - [GDB on Wikipedia](https://en.wikipedia.org/wiki/Gdb)
 - [GDB Project](https://www.sourceware.org/gdb/)
 
+![image](https://user-images.githubusercontent.com/12407183/203791631-a82d72af-ca51-4ec0-b7d0-8da880ccf426.png)
+
 ## Basic Command Line Operation
 
 GDB is used mainly to debug a process by starting it with gdb
