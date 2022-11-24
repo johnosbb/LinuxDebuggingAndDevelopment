@@ -10,6 +10,9 @@ Perf provides a set of operations that each have specific arguments:  stat, reco
 
 To use perf, the kernel needs to be configured with CONFIG_PERF_EVENTS=y.
 
+![image](https://user-images.githubusercontent.com/12407183/203774526-294a431f-8b7a-477f-812a-d0c662c8d07b.png)
+
+
 ![image](https://user-images.githubusercontent.com/12407183/203774000-245735b0-2835-4cb2-9cc0-baa358795c07.png)
 
 ### perf record
