@@ -30,3 +30,16 @@ TraceFDs()
 
 
 ```
+
+Python scripts can be loaded using gdb source command or the script can be named <program>-gdb.py and will be loaded automatically by GDB
+```gdb  
+(gdb) source trace_fds.py
+(gdb) tracefds
+Hooking open() with custom breakpoint
+Breakpoint 1 at 0x33e0
+(gdb) run
+Starting program: /usr/bin/touch foo bar
+Temporary breakpoint 2 at 0x5555555587da
+---> File foo opened with fd 3
+Temporary breakpoint 3 at 0x5555
+```
