@@ -5,6 +5,13 @@
 - [Brendan Gregg's Site](https://www.brendangregg.com/perf.html)
 - [TCP Trace Points](https://www.brendangregg.com/blog/2018-03-22/tcp-tracepoints.html)
 
+
+## ptrace
+
+The ptrace mechanism allows processes to trace other processes by accessing their trace memory and register contents. A tracer can observe and control the execution state of another process. It works by attaching to a target process using the [ptrace](https://man7.org/linux/man-pages/man2/ptrace.2.html) system call. 
+It is often used indirectly using other tools like GDB, strace and all debugging tools that needs access to the trace information and process state.
+
+
 ## ltrace
 
 ltrace is a tool to trace shared library calls used by a program and all the signals it receives. It is a useful complement to strace, which shows only system calls and not the system calls made by linked libraries.
