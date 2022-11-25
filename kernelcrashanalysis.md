@@ -3,6 +3,7 @@
 
 A kernel crash takes the following form:
 
+To debug the crash to a specific line we need to set CONFIG_DEBUG_INFO=y when we compile the kernel.
 ```sh
 [77001.092637] Unable to handle kernel NULL pointer dereference at virtual address 00000070
 [77001.106711] pgd = 5f4ca819
@@ -278,5 +279,16 @@ On the target device we must register the serial port we will use for the actual
 # echo ttySTM0 > /sys/module/kgdboc/parameters/kgdboc
 [81469.293346] KGDB: Registered I/O driver kgdboc
 # 
+```
+
+Now when we trigger a crash on the target we should see the following:
+
+```sh
+# [   97.516956] 8<--- cut here ---
+[   97.518843] Unable to handle kernel NULL pointer dereference at virtual address 00000070
+[   97.542541] pgd = c15c7794
+[   97.544066] [00000070] *pgd=00000000
+[   97.547684] Internal error: Oops: 5 [#1] PREEMPT SMP ARM
+[   97.552821] KGDB: Waiting for remote debugger
 ```
 
