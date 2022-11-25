@@ -177,6 +177,11 @@ We can also disassemble with source code interleaved
 
 ```gdb
 (gdb) disassemble /m 0xc07c45cc
+
+or
+
+disas/s 0xc07c45cc
+
 ```
 
 This produces the following:
@@ -235,3 +240,5 @@ Dump of assembler code for function stm32_iwdg_start:
    0xc07c45f8 <+108>:	lsr	r2, r2, #12
 
 ```
+
+[See here for the documentation on disassembly](https://sourceware.org/gdb/current/onlinedocs/gdb/Machine-Code.html#Machine-Code)
