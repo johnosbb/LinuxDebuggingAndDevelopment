@@ -16,3 +16,10 @@ cd ./crash-utility
 make target=ARM #to build for our target
 ```
 
+
+We can load a vmcore with
+
+```sh
+sudo chown snuc:snuc /home/snuc/debugging-labs/nfsroot/root/vmcore
+./crash /home/<user>/debugging-labs/nfsroot/root/vmlinux /home/<user>/debugging-labs/nfsroot/root/vmcore
+```
