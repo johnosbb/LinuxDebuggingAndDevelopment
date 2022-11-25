@@ -257,7 +257,7 @@ The git repo is at:
 
 https://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git
 
-Run make in the kdmx directory and then to use type:
+Run make in the kdmx directory and then ensure that any existing open connections to the existing serial port (/dev/ttyACM0) are closed. Type the following command to multiplex the serial port.
 
 ```sh
 ./kdmx -n -d -p/dev/ttyACM0 -b115200
@@ -272,6 +272,12 @@ Initalizing the serial port to 115200 8n1
 
 Use <ctrl>C to terminate program
 
+```
+
+On your host you can open a serial terminal to the target with
+
+```sh
+picocom -b 115200 /dev/pts/4
 ```
 
 On the target device we must register the serial port we will use for the actual debug:
