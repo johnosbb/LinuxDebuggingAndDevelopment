@@ -328,3 +328,29 @@ We then connect to the remote target using the port provided by the agent-proxy 
 Remote debugging using /dev/pts/5
 ```
 
+We can then begin debugging in gdb with
+```gdb
+(gdb) target remote /dev/pts/6
+Remote debugging using /dev/pts/6
+warning: multi-threaded target stopped without sending a thread-id, using first non-exited thread
+[Switching to Thread 4294967294]
+0xc07c45cc in stm32_iwdg_start (wdd=0xc3869400) at drivers/watchdog/stm32_iwdg.c:98
+98		presc = DIV_ROUND_UP(tout * wdt->rate, RLR_MAX + 1);
+(gdb) bt
+#0  0xc07c45cc in stm32_iwdg_start (wdd=0xc3869400) at drivers/watchdog/stm32_iwdg.c:98
+#1  0xc07c39d4 in watchdog_start (wdd=wdd@entry=0xc3869400) at drivers/watchdog/watchdog_dev.c:281
+#2  0xc07c3b14 in watchdog_open (inode=0xc26cb0d0, file=0xc3e80780) at drivers/watchdog/watchdog_dev.c:855
+#3  0xc030ae20 in chrdev_open (inode=inode@entry=0xc26cb0d0, filp=filp@entry=0xc3e80780) at fs/char_dev.c:414
+#4  0xc02ff7fc in do_dentry_open (f=f@entry=0xc3e80780, inode=0xc26cb0d0, open=0xc030ad50 <chrdev_open>, open@entry=0x0) at fs/open.c:826
+#5  0xc0301720 in vfs_open (path=path@entry=0xc3effe58, file=file@entry=0xc3e80780) at fs/open.c:940
+#6  0xc03181c8 in do_open (op=0x0, file=0xc3e80780, nd=0xc3effe58) at fs/namei.c:3361
+#7  path_openat (nd=nd@entry=0xc3effe58, op=op@entry=0xc3efff20, flags=flags@entry=65) at fs/namei.c:3494
+#8  0xc0319920 in do_filp_open (dfd=dfd@entry=-100, pathname=pathname@entry=0xc2190000, op=op@entry=0xc3efff20) at fs/namei.c:3521
+#9  0xc03019fc in do_sys_openat2 (dfd=dfd@entry=-100, filename=filename@entry=0xbed32f58 "/dev/watchdog0", how=how@entry=0xc3efff58) at fs/open.c:1187
+#10 0xc0301e9c in do_sys_open (mode=<optimised out>, flags=<optimised out>, filename=0xbed32f58 "/dev/watchdog0", dfd=-100) at fs/open.c:1203
+#11 __do_sys_openat (mode=<optimised out>, flags=<optimised out>, filename=0xbed32f58 "/dev/watchdog0", dfd=-100) at fs/open.c:1219
+#12 __se_sys_openat (dfd=-100, filename=-1093456040, flags=<optimised out>, mode=<optimised out>) at fs/open.c:1214
+#13 0xc0100060 in cpu_v7_reset () at arch/arm/mm/proc-v7.S:64
+Backtrace stopped: previous frame identical to this frame (corrupt stack?)
+(gdb) 
+```
