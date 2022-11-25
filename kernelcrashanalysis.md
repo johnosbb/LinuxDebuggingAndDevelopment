@@ -242,3 +242,41 @@ Dump of assembler code for function stm32_iwdg_start:
 ```
 
 [See here for the documentation on disassembly](https://sourceware.org/gdb/current/onlinedocs/gdb/Machine-Code.html#Machine-Code)
+
+
+
+# Using a Serial Proxy for debugging with KGDB
+
+## agent-proxy
+
+This is a simple, small proxy which was intended for use with kgdb, or gdbserver type connections where you want to share a text console and
+a debug session. The idea is that you use the agent-proxy to connect to a serial port directly or to a remote terminal server. This allows you maintain a console while running kgdb over a multiplexed serial link provided by agent-proxy.
+
+The git repo is at:
+
+https://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git
+
+Run make in the kdmx directory and then to use type:
+
+```sh
+./kdmx -n -d -p/dev/ttyACM0 -b115200
+```
+It will produce the output
+
+```sh
+serial port: /dev/ttyACM0
+Initalizing the serial port to 115200 8n1
+/dev/pts/4 is slave pty for terminal emulator
+/dev/pts/5 is slave pty for gdb
+
+Use <ctrl>C to terminate program
+
+```
+
+On the target device we must register the serial port we will use for the actual debug:
+```sh
+# echo ttySTM0 > /sys/module/kgdboc/parameters/kgdboc
+[81469.293346] KGDB: Registered I/O driver kgdboc
+# 
+```
+
