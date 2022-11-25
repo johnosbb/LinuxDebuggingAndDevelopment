@@ -42,7 +42,20 @@ The pr_debug() and dev_dbg() macros are enabled when the driver is compiled with
 
 When the kernel is compiled with CONFIG_DYNAMIC_DEBUG, then these messages can [dynamically](https://www.kernel.org/doc/Documentation/admin-guide/dynamic-debug-howto.rst) be enabled on a per-file, per-module or per-message basis. 
 
-If we use CONFIG_DYNAMIC_DEBUG we can enable on-demand debugging with sysctrl interface by echoing the appropriate strings to /sys/kernel/debug/dynamic_debug/control
+If we use CONFIG_DYNAMIC_DEBUG we can enable on-demand debugging with sysctrl interface by echoing the appropriate strings to /sys/kernel/debug/dynamic_debug/control.
+This has a dependency on the ‘debugfs’ filesystem. Thus, you must first mount the debugfs filesystem, in order to make use of this feature. 
+
+```sh
+mount -t debugfs none /sys/kernel/debug/
+```
+
+You can view the currently configured behaviour of all the debug statements via:
+
+```sh
+echo 'file svcsock.c line 1603 +p' > /sys/kernel/debug/dynamic_debug/control
+```
+
+[See also the Dynamic Debug How to](https://www.kernel.org/doc/html/v5.0/admin-guide/dynamic-debug-howto.html)
 
 ## Files that support Kernel Debugging
 
