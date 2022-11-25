@@ -354,3 +354,28 @@ warning: multi-threaded target stopped without sending a thread-id, using first 
 Backtrace stopped: previous frame identical to this frame (corrupt stack?)
 (gdb) 
 ```
+
+
+From this we can identify the offending line
+
+
+```c
+static int stm32_iwdg_start(struct watchdog_device *wdd)
+{
+	struct stm32_iwdg *wdt = watchdog_get_drvdata(wdd);
+	u32 tout, presc, iwdg_rlr, iwdg_pr, iwdg_sr;
+	int ret;
+
+	dev_dbg(wdd->parent, "%s\n", __func__);
+
+	tout = clamp_t(unsigned int, wdd->timeout,
+		       wdd->min_timeout, wdd->max_hw_heartbeat_ms / 1000);
+
+	presc = DIV_ROUND_UP(tout * wdt->rate, RLR_MAX + 1);
+
+	/* The prescaler is align on power of 2 and start at 2 ^ PR_SHIFT. */
+	presc = roundup_pow_of_two(presc);
+	iwdg_pr = presc <= 1 << PR_SHIFT ? 0 : ilog2(presc) - PR_SHIFT;
+	iwdg_rlr = ((tout * wdt->rate) / presc) - 1;
+
+```
