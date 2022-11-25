@@ -166,3 +166,85 @@ A kernel crash takes the following form:
 [77001.663847]  r5:b6fcd1a0 r4:00000000
 [77001.667410] Code: e5952030 e3041dd3 e3411062 e595301c (e5940070) 
 ```
+
+The key pieces of information here are the following:
+
+[77001.092637] Unable to handle kernel NULL pointer dereference at virtual address 00000070. This tells us we crashed because we attempted to dereference a null pointer.
+
+The PC register contains the location of the instruction being executed at the time of the crash, and we can use this to find the function in which the crash occured.
+
+```sh
+addr2line -e ./vmlinux -a c07c45cc
+```
+This identifies the function:
+
+```sh
+/home/snuc/debugging-labs/buildroot/output/build/linux-5.13/drivers/watchdog/stm32_iwdg.c:98
+```
+We can then use gdb to dissassemble the code
+
+```sh
+gdb-multiarch vmlinux
+```
+We then disassemble that function in gdb my passing the function address:
+
+```gdb
+disassemble 0xc07c45cc
+```
+This produces the required disassembly:
+
+```gdb
+Dump of assembler code for function stm32_iwdg_start:
+   0xc07c458c <+0>:	mov	r12, sp
+   0xc07c4590 <+4>:	push	{r4, r5, r6, r7, r11, r12, lr, pc}
+   0xc07c4594 <+8>:	sub	r11, r12, #4
+   0xc07c4598 <+12>:	push	{lr}		; (str lr, [sp, #-4]!)
+   0xc07c459c <+16>:	bl	0xc0111b78 <__gnu_mcount_nc>
+   0xc07c45a0 <+20>:	movw	r2, #16256	; 0x3f80
+   0xc07c45a4 <+24>:	movt	r2, #49422	; 0xc10e
+   0xc07c45a8 <+28>:	ldr	r4, [r0, #76]	; 0x4c
+   0xc07c45ac <+32>:	mov	r5, r0
+   0xc07c45b0 <+36>:	ldrh	r3, [r2, #42]	; 0x2a
+   0xc07c45b4 <+40>:	tst	r3, #4
+   0xc07c45b8 <+44>:	bne	0xc07c46ec <stm32_iwdg_start+352>
+   0xc07c45bc <+48>:	ldr	r2, [r5, #48]	; 0x30
+   0xc07c45c0 <+52>:	movw	r1, #19923	; 0x4dd3
+   0xc07c45c4 <+56>:	movt	r1, #4194	; 0x1062
+   0xc07c45c8 <+60>:	ldr	r3, [r5, #28]
+   0xc07c45cc <+64>:	ldr	r0, [r4, #112]	; 0x70
+   0xc07c45d0 <+68>:	umull	r1, r2, r1, r2
+   0xc07c45d4 <+72>:	ldr	r1, [r5, #36]	; 0x24
+   0xc07c45d8 <+76>:	cmp	r3, r1
+   0xc07c45dc <+80>:	lsr	r2, r2, #6
+   0xc07c45e0 <+84>:	movcc	r3, r1
+   0xc07c45e4 <+88>:	cmp	r3, r2
+   0xc07c45e8 <+92>:	movcs	r3, r2
+   0xc07c45ec <+96>:	mul	r3, r0, r3
+   0xc07c45f0 <+100>:	add	r2, r3, #4080	; 0xff0
+   0xc07c45f4 <+104>:	add	r2, r2, #15
+   0xc07c45f8 <+108>:	lsr	r2, r2, #12
+   0xc07c45fc <+112>:	subs	r2, r2, #1
+   0xc07c4600 <+116>:	bne	0xc07c469c <stm32_iwdg_start+272>
+   0xc07c4604 <+120>:	ldr	r1, [r4, #100]	; 0x64
+   0xc07c4608 <+124>:	sub	r3, r3, #1
+   0xc07c460c <+128>:	movw	r0, #21845	; 0x5555
+   0xc07c4610 <+132>:	str	r0, [r1]
+   0xc07c4614 <+136>:	str	r2, [r1, #4]
+   0xc07c4618 <+140>:	str	r3, [r1, #8]
+   0xc07c461c <+144>:	movw	r3, #52428	; 0xcccc
+   0xc07c4620 <+148>:	str	r3, [r1]
+   0xc07c4624 <+152>:	bl	0xc01de4c4 <ktime_get>
+   0xc07c4628 <+156>:	mov	r3, #57600	; 0xe100
+   0xc07c462c <+160>:	movt	r3, #1525	; 0x5f5
+   0xc07c4630 <+164>:	mov	r2, #0
+   0xc07c4634 <+168>:	adds	r6, r0, r3
+   0xc07c4638 <+172>:	movw	r0, #42812	; 0xa73c
+   0xc07c463c <+176>:	movt	r0, #49368	; 0xc0d8
+   0xc07c4640 <+180>:	adc	r7, r1, #0
+   0xc07c4644 <+184>:	mov	r1, #114	; 0x72
+   0xc07c4648 <+188>:	bl	0xc015cb7c <__might_sleep>
+   0xc07c464c <+192>:	ldr	r3, [r4, #100]	; 0x64
+   0xc07c4650 <+196>:	ldr	r2, [r3, #12]
+   0xc07c4654 <+200>:	tst	r2, #3
+
+```
