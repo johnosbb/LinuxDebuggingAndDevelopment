@@ -31,7 +31,8 @@ Embedded Linux Debugging And Development
 
 ### Crash Analysis
 
-- (Kernel Crash Analysis](crash.md)
+- [Kernel Crash Analysis](kernelcrashanalysis.md)
+- [Crash Utility](crashutility.md)
 
 ### Note on using set sysroot
 
