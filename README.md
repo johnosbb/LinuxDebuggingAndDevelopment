@@ -32,6 +32,10 @@ Embedded Linux Debugging And Development
 - [Tracing on Linux](tracing.md)
 
 
+## Performance and Profiling
+
+- [Prefromance Profiling Tools](performance.md)
+
 ### Crash Analysis
 
 - [Kernel Crash Analysis](kernelcrashanalysis.md)
