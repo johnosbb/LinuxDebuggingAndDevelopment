@@ -34,7 +34,7 @@ Embedded Linux Debugging And Development
 
 ## Performance and Profiling
 
-- [Prefromance Profiling Tools](performance.md)
+- [Performance Profiling Tools](performance.md)
 
 ### Crash Analysis
 
