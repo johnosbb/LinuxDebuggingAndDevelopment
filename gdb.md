@@ -5,11 +5,40 @@
 - [GDB on Wikipedia](https://en.wikipedia.org/wiki/Gdb)
 - [GDB Project](https://www.sourceware.org/gdb/)
 
-![image](https://user-images.githubusercontent.com/12407183/203791631-a82d72af-ca51-4ec0-b7d0-8da880ccf426.png)
-
 ## Basic Command Line Operation
 
-GDB is used mainly to debug a process by starting it with gdb
+GDB is a GNU debugger which supports Ada, C/C++, Assembly, D, Fortran, GO and RUST. It is mainly used to debug a process by starting it with gdb.
+
+GDB command line debug options
+* -g0: Provides no debug information
+* -g1: Produce minimal information enough for producing back trace but no information of variables and line numbers.
+* -g2: Default debug level (same as -g). Produce symbol, line number required for debugging
+* -g3: Extra debug information, includes macro definition.
+* -ggdb3: This is like g3, but generates debug information specifically GDB
+
+```sh
+aarch64-linux-gnu-gcc -ggdb3 -o helloworld helloworld.c
+
+aarch64-linux-gnu-objdump -h helloworld
+
+----
+----
+ 25 .debug_aranges 00000030  0000000000000000  0000000000000000  000008ee  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 26 .debug_info   00000452  0000000000000000  0000000000000000  0000091e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 27 .debug_abbrev 0000012a  0000000000000000  0000000000000000  00000d70  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 28 .debug_line   0000079f  0000000000000000  0000000000000000  00000e9a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 29 .debug_frame  00000038  0000000000000000  0000000000000000  00001640  2**3
+                  CONTENTS, READONLY, DEBUGGING
+ 30 .debug_str    00043c7a  0000000000000000  0000000000000000  00001678  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 31 .debug_macro  000154ea  0000000000000000  0000000000000000  000452f2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+```
+debug information added into ELF if -g option is specified. Debug section are kept seperate in the executable from the .text section. That helps running a non debug version of binary on a target system and on the host system using debug version of smae ELF,  code can be debugged.
 
 ```sh
   gdb <program_binary_to_debug>
