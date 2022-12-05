@@ -38,7 +38,7 @@ aarch64-linux-gnu-objdump -h helloworld
  31 .debug_macro  000154ea  0000000000000000  0000000000000000  000452f2  2**0
                   CONTENTS, READONLY, DEBUGGING
 ```
-debug information added into ELF if -g option is specified. Debug section are kept seperate in the executable from the .text section. That helps running a non debug version of binary on a target system and on the host system using debug version of smae ELF,  code can be debugged.
+Debug information is added into ELF if the -g option is specified. Debug section are kept seperate in the executable from the .text section. This helps by allowing us to run a non debug version of binary on a target system while using the same ELF on the host system for debugging tools.
 
 ```sh
   gdb <program_binary_to_debug>
