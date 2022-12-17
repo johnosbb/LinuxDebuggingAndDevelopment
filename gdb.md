@@ -164,16 +164,18 @@ Using `shell <cmd>` GDB will shell out and run the provided OS command.
 
 ### Thread Debugging
 
-`info threads` Shows active thread IDs
-`thread n` Select a thread by ID
-`break <lineno> thread <id>` Restrict breakpoint to a particular thread. Other thread doesn't hit the same breakpoint.
-`thread apply all bt` Show backtrace of all the threads.
+-`info threads` Shows active thread IDs
+-`thread n` Select a thread by ID
+-`break <lineno> thread <id>` Restrict breakpoint to a particular thread. Other thread doesn't hit the same breakpoint.
+-`thread apply all bt` Show backtrace of all the threads.
 
 ## Printing in GDB
 
 Use `print <EXP>` to print any value from current stack, frame, globals and entire file. GDB supports printing the past values of a variable by appending it using $ symbol.
 
+```
 Example: $NUM is a value previous to currently stored in NUM. Simillarly, $$NUM is value previously stored before $NUM and so on.
+```
 
 The @ symbol is a binary operator used in objects with consecutive data.
 

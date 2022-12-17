@@ -62,3 +62,20 @@ gdb-multiarch -tui <Executable Binary>
 Toggle ON and OFF from GDB using ctrl-x a
 ```
 ### cgdb Mode
+
+This is similar to TUI mode but more enhanced in terms of source code representation. 
+
+CGDB [Reference](https://cgdb.github.io/)
+
+Install
+```
+$ git clone git://github.com/cgdb/cgdb.git
+$ cd cgdb
+$ ./autogen.sh
+$ ./configure --prefix=/usr/local
+$ make
+$ sudo make install
+```
+
+Execute
+`cgdb -d gdb-multiarch <Executable Binary>`
