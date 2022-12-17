@@ -2,7 +2,7 @@
 
 ## Stack frames and backtrace
 
-Each funtion has a stack frame which contains its local (auto) variable. `bt` command dumps the stack frames and call chain of the program. 
+Each funtion has a stack frame which contains its local (auto) variable. The `bt` command dumps the stack frames and the call chain of the program. 
 
 We can use `info local` to show all local variables in a corresponding stack frame and using `frame N` we can change the current stack frame.
 
@@ -21,7 +21,7 @@ While using build system like buildroot, debug is available in sysroot. GDB can 
 
 ## Defining your own commands
 
-GDB has the ability to define custom command/script using `define <name>` command
+GDB has the ability to define custom commands and scripts using `define <name>` command
 
 ```sh
 define bmain
@@ -29,7 +29,7 @@ break main
 info break
 end
 ```
-You can then run it just like any other gdb command:
+You can then be run just like any other gdb command:
 
 ```sh
 (gdb) bmain
