@@ -1,11 +1,9 @@
-# Debugging with GDB command line
+# Debugging with GDB command line (Part 1)
 
 # Reference
 
 - [GDB on Wikipedia](https://en.wikipedia.org/wiki/Gdb)
 - [GDB Project](https://www.sourceware.org/gdb/)
-
-## Basic Command Line Operation
 
 GDB is a GNU debugger which supports Ada, C/C++, Assembly, D, Fortran, GO and RUST. It is mainly used to debug a process by starting it with gdb.
 
@@ -40,6 +38,26 @@ aarch64-linux-gnu-objdump -h helloworld
 ```
 Debug information is added into ELF if the -g option is specified. Debug section are kept seperate in the executable from the .text section. This helps by allowing us to run a non debug version of binary on a target system while using the same ELF on the host system for debugging tools.
 
+GDB to work properly, code optimization should be turned off.
+- Using -O0 compiler optimization flag
+- or enable only GDB compatible optimization flag -Og
+
+## SYSROOT
+
+SYSROOT of a toolchain is the directory containing supporting files such as header files, static libraries, shared libraries etc. 
+
+For a native toolchain sysroot='/'
+
+For a cross toolchain sysroot is usually inside the toolchain directory which can be find using `-print-sysroot`
+
+```sh
+aarch64-linux-gnu-gcc -print-sysroot
+/home/developer/buildroot/output/host/usr/aarch64-buildroot-linux-gnu/sysroot
+```
+sysroot tells GDB where to find the debug info and it can be set in GDB using `set sysroot <Toolchain sysroot>`
+
+## Basic GDB Command Line Operation
+
 ```sh
   gdb <program_binary_to_debug>
 ```
@@ -50,12 +68,11 @@ GDB can also be attached to running processes using the program PID
   gdb -p <pid_of_program_binary_to_debug>
 ```
 When using GDB to start a program, the program needs to be run with
+
 ```sh
 (gdb) run
 ```
-
 We can manipulate program execution with the following commands:
-
 
 ```gdb
 break foobar (b)
@@ -77,6 +94,115 @@ stepi (s)
 backtrace (bt)
 # Display the program stack
 ```
+### Breakpoints
+
+Types of breakpoint
+- Normal or software breakpoint: `b <lineno>`
+	- GDB adds a trap instruction in the software where break point is defined.
+- Temporary breakpoint: `tbreak <lineno>`
+	- Stop once and remove the break point automatically.
+- Hardware breakpoint: `hbreak <lineno>`
+	- When running from flash, adding software breakpoints is not an optimal solution. In that case we can use hardware breakpoint which are dependent on CPU architecture. When the instruction pointer matches the hardware break point mask it stop the execution and bring back to debugger.
+
+Conditional breakpoint: Stop debugger at breakpoint if condition is matched. It slows down the execution speed so not recommended to debug race conditions.
+`break <lineno> if <condition is true>`
+
+List breakpoints: `info break`
+
+Delete breakpoint: `delete break <NUM>`
+
+Execute command after hitting the breakpoint
+```
+(gdb) After b main
+(gdb) commands
+Type commands to execute after breakpoint and use "End" keyword to end command list
+```
+### Watchpoints
+
+Watchpoints break the program when a selected varaible's value changes
+
+Examples:
+- watch -l <address/symbol>
+- rwatch <a/s> 				Stops if the address is read
+- watch <a/s> thread 3 			Stops if thread 3 modifies
+- watch <a/s> if <a/s> > 5		Stops when the contents > 5 (Uses Hardware breakpoint)
+
+Shows the old and new value when the watchpoint is hit.
+
+Conditional Watchpoints: `watch <a/s> if <condition is true>`
+
+### File command
+
+GDB provides an option of loading the program and files through `file <filename>` command from GDB prompt. This comes handy while debugging Kernel code through kgdb. Kernel code doesn't contains dynamically loaded kernel module. Using file command we can load the modules in the kernel while debugging it through kgdb.
+
+- Load the program using file command.
+- Provide the arguments using `set args` command.
+- Check the argument using `show args` command.
+- run it using `run` command.
+
+In case if GDB is attached to a running process using `gdb -p <PID>`, we can load the executable ( with -g compiled) and symbol table using file command to debug the attached process.
+
+### List command
+
+List command is used to list source code. Following options are possible with list command 
+- LINENUM
+- FILE:LINENUM
+- FUNCION
+- FILE:FUNCTION
+- *ADDRESS
+
+`set output-radix 16` would set the display radix to hexadecimal.
+
+### Call command
+
+Once the program is loaded, using call command we can call a function from GDB command line. 
+`call function(a,b)`
+
+### Shell command
+
+Using `shell <cmd>` GDB will shell out and run the provided OS command.  
+
+### Thread Debugging
+
+-`info threads` Shows active thread IDs
+-`thread n` Select a thread by ID
+-`break <lineno> thread <id>` Restrict breakpoint to a particular thread. Other thread doesn't hit the same breakpoint.
+-`thread apply all bt` Show backtrace of all the threads.
+
+## Printing in GDB
+
+Use `print <EXP>` to print any value from current stack, frame, globals and entire file. GDB supports printing the past values of a variable by appending it using $ symbol.
+
+```
+Example: $NUM is a value previous to currently stored in NUM. Simillarly, $$NUM is value previously stored before $NUM and so on.
+```
+
+The @ symbol is a binary operator used in objects with consecutive data.
+
+We can use x option to print memory at the address in a given size.
+
+Example: x /db &test -> Prints memory of test as a decimal byte.
+
+## Signals in GDB
+
+GDB is built on ptrace, when the process gets a signal it gets suspended and GDB is notified about the singal.
+
+```
+info signal
+
+info handle -> Handle change the way how signal is handeled in GDB
+	- nostop: do not stop the program but print the signal occured
+	- stop: stop program when signal occurs
+	- print: print a message when signal occur
+	- noprint: do not mention when a signal occur
+	- pass: Allow the program to see the signal so it can be handeled
+	- nopass: do not pass the signal to your program
+
+handle signal keyword -> Assign a handle to a signal.
+	- Example: handle SIGILL nostop
+
+signal SEGSEGV -> Deliver SEGV signal to current program
+```
 
 ## Using the multi option with gdb
 
@@ -97,27 +223,3 @@ With target remote mode: The GDB command attach is not supported. To attach to a
 With target extended-remote mode: To attach to a running program, you may use the attach command after the connection has been established. If you are using gdbserver, you may also invoke gdbserver using the --attach option (see Running gdbserver).
 
 Some remote targets allow GDB to determine the executable file running in the process the debugger is attaching to. In such a case, GDB uses the value of exec-file-mismatch to handle a possible mismatch between the executable file name running in the process and the name of the current exec-file loaded by GDB (see set exec-file-mismatch).
-
-## Defining your own commands
-
-You can define a new command defining it:
-
-```sh
-define bmain
-break main
-info break
-end
-
-```
-
-You can then run it just like any other gdb command:
-
-```sh
-(gdb) bmain
-Breakpoint 1 at 0x400516: file helloworld.c, line 7.
-Num Type Disp Enb Address What
-1 breakpoint keep y 0x00400516 in main at helloworld.c:7
-```
-This is useful for sequences that you use many times and you can put these commands into command files for different types of debugging.
-
-

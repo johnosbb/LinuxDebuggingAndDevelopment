@@ -16,7 +16,8 @@ Embedded Linux Debugging And Development
 
 ## Debugging
 
-- [GDB Command line Debugging](gdb.md)
+- [GDB Command line Debugging - Part 1](gdb.md)
+- [GDB Command line Debugging - Part 2](gdb_part2.md)
 - [Debugging with Core Dumps](coredump.md)
 - [Comand Line Options for Segmentation Faults](segmentation.md)
 
