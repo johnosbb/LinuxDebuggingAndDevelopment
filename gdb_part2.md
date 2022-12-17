@@ -8,7 +8,8 @@ We can use `info local` to show all local variables in a corresponding stack fra
 
 ## Debugging with library codes
 
-By default GDB searched the source code in 
+By default GDB searches the source code in 
+
 	- $cdir: The compile directory (Encoded in ELF)
 	- $cwd: current working directory
 
