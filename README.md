@@ -19,8 +19,8 @@ Embedded Linux Debugging And Development
 - [GDB Command line Debugging - Part 1](gdb.md)
 - [GDB Command line Debugging - Part 2](gdb_part2.md)
 - [Debugging with Core Dumps](coredump.md)
+- [GDB Python Support](gdbpython.md)
 - [Comand Line Options for Segmentation Faults](segmentation.md)
-
 
 ### Remote Debugging Options
 
@@ -28,7 +28,7 @@ Embedded Linux Debugging And Development
 - [Remote Debugging with Eclipse](eclipse.md)
 - [Remote Debugging with GDB Command Line Tools](gdb_remote.md)
 
-### Tracing
+## Tracing
 
 - [Tracing on Linux](tracing.md)
 
@@ -37,12 +37,12 @@ Embedded Linux Debugging And Development
 
 - [Performance Profiling Tools](performance.md)
 
-### Crash Analysis
+## Crash Analysis
 
 - [Kernel Crash Analysis](kernelcrashanalysis.md)
 - [Crash Utility](crashutility.md)
 
-# Assembly Language Tool Online
+## Assembly Language Tool Online
 
 - [Online Tool](https://godbolt.org/)
 
