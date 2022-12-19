@@ -38,13 +38,24 @@ aarch64-linux-gnu-objdump -h helloworld
 ```
 Debug information is added into ELF if the -g option is specified. Debug section are kept seperate in the executable from the .text section. This helps by allowing us to run a non debug version of binary on a target system while using the same ELF on the host system for debugging tools.
 
+We can also check if Symbols are present in binary
+
+```sh
+readelf --debug-dump=decodedline $1
+```
+
 GDB to work properly, code optimization should be turned off.
-- Using -O0 compiler optimization flag
-- or enable only GDB compatible optimization flag -Og
+
+1. Using -O0 compiler optimization flag.
+2. or enable only GDB compatible optimization flag -Og.
+3. Use -g Debug flag.
+3. Annotate a specific function with compiler attribute `__attribute__((optimize("O0")))`.
+4. Remove "Static" qualifier to avoid inline function. It often folded in the function and not visible in backtrace.
+5. Use "volatile" to optimize out a variable.
 
 ## SYSROOT
 
-SYSROOT of a toolchain is the directory containing supporting files such as header files, static libraries, shared libraries etc. 
+SYSROOT of a toolchain is the directory containing supporting files such as header files, static libraries, shared libraries etc. In GDB sysroot should point the location where GDB can find debug info. The default value for the set sysroot variable depends on your toolchain. If your GDB binary was compiled with the --sysroot argument, you won't need to run the set sysroot command - the sysroot will be automatically set to the location specified during compilation. Otherwise the default value will be "" and you might need to set it manually using `set sysroot <Toolchain sysroot>`, if you are debugging remote processes.
 
 For a native toolchain sysroot='/'
 
@@ -54,7 +65,14 @@ For a cross toolchain sysroot is usually inside the toolchain directory which ca
 aarch64-linux-gnu-gcc -print-sysroot
 /home/developer/buildroot/output/host/usr/aarch64-buildroot-linux-gnu/sysroot
 ```
-sysroot tells GDB where to find the debug info and it can be set in GDB using `set sysroot <Toolchain sysroot>`
+
+### Sysroot in Buildroot
+
+In buildroot the staging area is a symbolic link to the sysroot: /home/snuc/debugging-labs/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot
+
+```sh
+/home/snuc/debugging-labs/buildroot/output/staging -> /home/snuc/debugging-labs/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot
+```
 
 ## Basic GDB Command Line Operation
 

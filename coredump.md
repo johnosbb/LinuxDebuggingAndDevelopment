@@ -2,11 +2,11 @@
 
 ## Using Core Dumps
 
-When an application crashes due to a segmentation fault and the application was not under control of a debugger, we get no information about the crash; however, Linux can generate a core file that contains the image of the application memory at the moment of the crash, and gdb can use this core file to let us analyze the state of the crashed application
+When an application crashes due to a segmentation fault and the application was not under control of a debugger, we get no information about the crash; however, Linux can generate a core file that contains the image of the application memory (stack, mmap, heap and data segments) at the moment of the crash, and gdb can use this core file to let us analyze the state of the crashed application.
 
 To enable core dumping on the target we can use the following command:
 
-To enable core dumps 
+To enable core dumps set RLIMIT_CORE to unlimited.
 
 ```sh
 ulimit -c unlimited
@@ -16,7 +16,11 @@ ulimit -c unlimited
 If required the output name for the coredump file can be modified by writing to:
 
 ```sh
-/proc/sys/kernel/core_pattern.
+echo "/corefile/%e-%p" > /proc/sys/kernel/core_pattern
+
+/corefile -> Directory to dump core file
+%e -> Executable name
+%p -> Process ID
 ```
 
 Then, run the program normally:
@@ -34,7 +38,7 @@ echo "set sysroot /home/snuc/debugging-labs/buildroot/output/staging" > gdbinit_
 ````
 
 ```sh
-gdb-multiarch -x gdbinit_local <program_binary> <coredump_file>
+gdb-multiarch -x gdbinit_local <program_binary> -core <coredump_file>
 ```
 
 We can then get a trace of the fault

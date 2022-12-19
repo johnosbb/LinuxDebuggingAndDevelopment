@@ -19,8 +19,8 @@ Embedded Linux Debugging And Development
 - [GDB Command line Debugging - Part 1](gdb.md)
 - [GDB Command line Debugging - Part 2](gdb_part2.md)
 - [Debugging with Core Dumps](coredump.md)
+- [GDB Python Support](gdbpython.md)
 - [Comand Line Options for Segmentation Faults](segmentation.md)
-
 
 ### Remote Debugging Options
 
@@ -28,7 +28,7 @@ Embedded Linux Debugging And Development
 - [Remote Debugging with Eclipse](eclipse.md)
 - [Remote Debugging with GDB Command Line Tools](gdb_remote.md)
 
-### Tracing
+## Tracing
 
 - [Tracing on Linux](tracing.md)
 
@@ -37,50 +37,12 @@ Embedded Linux Debugging And Development
 
 - [Performance Profiling Tools](performance.md)
 
-### Crash Analysis
+## Crash Analysis
 
 - [Kernel Crash Analysis](kernelcrashanalysis.md)
 - [Crash Utility](crashutility.md)
 
-### Note on using set sysroot
-
-The default value for the set sysroot variable depends on your toolchain. If your GDB binary was compiled with the --sysroot argument, you won't need to run the set sysroot command - the sysroot will be automatically set to the location specified during compilation. Otherwise the default value will be "" and you might need to set it manually if you are debugging remote processes.
-
-You can check if the compiler knows the location of sysroot with:
-
-```sh
-/home/snuc/debugging-labs/buildroot/output/host/usr/bin/arm-linux-gcc  --print-sysroot
-# output
-/home/snuc/debugging-labs/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot
-```
-
-#### Sysroot in Buildroot
-
-In buildroot the staging area is a symbolic link to the sysroot: /home/snuc/debugging-labs/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot
-
-```sh
-/home/snuc/debugging-labs/buildroot/output/staging -> /home/snuc/debugging-labs/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot
-```
-
-### How to check if Symbols are present in binary
-
-```sh
-readelf --debug-dump=decodedline $1
-```
-
-
-### Dealing with Optimisation when Debugging
-
-Optimisation can make debugging with gdb difficult. There are a number of options:
-1. Turn off optimisation completely by using the -O0 flag
-2. Enable gdb friendly optimisation by using the -Og flag
-3. Annotate a specific function with: 
-```c
-__attribute__((optimize("O0")))
-```
-
-
-# Assembly Language Tool Online
+## Assembly Language Tool Online
 
 - [Online Tool](https://godbolt.org/)
 
