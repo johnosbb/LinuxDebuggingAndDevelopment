@@ -75,3 +75,10 @@ The kernel can crash for many reasons:
 
 When crashing, the kernel will display a message on the console that is called a ”Kernel oops”
 
+## Using a Secondary Dump-Capture Kernel
+
+Kexec is a mechanism of the Linux kernel that allows booting of a new kernel from the currently running one by skipping the bootloader stage and hardware initialization phase performed by the system firmware (BIOS or UEFI), and directly loading the new kernel into main memory and executing it immediately. 
+This allows us dump a perfect copy of the crashed kernel (memory, registers, etc) which can be then debugged using gdb or crash.
+
+We can use use a simple buildroot image with a builtin initramfs to create the dump-capture kernel.
+**Note**: Support for allowing only signed kernels to be booted through kexec was merged into version 3.17 of the Linux kernel mainline,
