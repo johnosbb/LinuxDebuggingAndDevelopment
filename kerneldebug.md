@@ -81,4 +81,39 @@ Kexec is a mechanism of the Linux kernel that allows booting of a new kernel fro
 This allows us dump a perfect copy of the crashed kernel (memory, registers, etc) which can be then debugged using gdb or crash.
 
 We can use use a simple buildroot image with a builtin initramfs to create the dump-capture kernel.
-**Note**: Support for allowing only signed kernels to be booted through kexec was merged into version 3.17 of the Linux kernel mainline,
+**Note**: Support for allowing only signed kernels to be booted through kexec was merged into version 3.17 of the Linux kernel mainline.
+
+### Building the Dump-Capture Kernel
+
+```sh
+cd /home/<user>/debugging-labs/buildroot
+make O=build_kexec stm32mp157a_dk1_debugging_kexec_defconfig
+cd build_kexec
+make -j12
+```
+
+If we are using a nfs mount we copy the dump-capture kernel and the device tree into a defined location in the nfs root
+
+```sh
+mkdir /home/<user>/debugging-labs/nfsroot/root/kexec
+cp build_kexec/images/zImage /home/<user>/debugging-labs/nfsroot/root/kexec
+cp build_kexec/images/stm32mp157a-dk1.dtb /home/<user>/debugging-labs/nfsroot/root/kexec
+```
+
+We need to tell the main kernel about the dump-capture kernel by adding the following detail to the command line. Intrerrupt the uboot bootup process and change the command line as shown below:
+
+oops=panic will cause the kernel to generate an oops on panic and crashkernel=60M reserve 60 MB for the kernel in memory.
+
+```sh
+env edit bootargs
+<existing bootargs> crashkernel=60M oops=panic
+boot
+```
+
+We can load the dump-capture kernel into memory with
+
+```sh
+kexec --type zImage -p /root/kexec/zImage --dtb=/root/kexec/stm32mp157a-dk1.dtb
+--command-line="console=ttySTM0,115200n8 maxcpus=1 reset_devices"
+```
+
