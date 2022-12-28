@@ -77,3 +77,29 @@ LOAD AVERAGE: 3.31, 2.06, 0.90
 crash> 
 ```
 
+
+We can use backtrace to identify the point of the crash:
+
+```sh
+crash> bt
+PID: 135      TASK: c3eb8e40  CPU: 1    COMMAND: "watchdog"
+ #0 [<c07c3830>] (stm32_iwdg_start) from [<c07c2c74>]
+ #1 [<c07c2be0>] (watchdog_start) from [<c07c2db4>]
+ #2 [<c07c2d34>] (watchdog_open) from [<c030ace0>]
+ #3 [<c030ac14>] (chrdev_open) from [<c02ff6bc>]
+ #4 [<c02ff57c>] (do_dentry_open) from [<c03015e0>]
+ #5 [<c03015a8>] (vfs_open) from [<c0318088>]
+ #6 [<c0317540>] (path_openat) from [<c03197e0>]
+ #7 [<c0319754>] (do_filp_open) from [<c03018bc>]
+ #8 [<c0301810>] (do_sys_openat2) from [<c0301d5c>]
+ #9 [<c0301cb4>] (sys_openat) from [<c0100060>]
+    pc : [<b6eac018>]    lr : [<0048e2c8>]    psr: 600f0010
+    sp : be96ec48  ip : 00562c44  fp : 00000000
+    r10: be96ee60  r9 : b6f3ce60  r8 : 005618a4
+    r7 : 00000142  r6 : be96ee44  r5 : b6f9c1a0  r4 : 00000000
+    r3 : 00000000  r2 : 00020001  r1 : be96ef58  r0 : ffffff9c
+    Flags: nZCv  IRQs on  FIQs on  Mode USER_32  ISA ARM
+crash> 
+
+
+```
