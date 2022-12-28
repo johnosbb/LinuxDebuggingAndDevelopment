@@ -174,4 +174,4 @@ We can retrieve the crashed core with the following command run on the host mach
 ![image](https://user-images.githubusercontent.com/12407183/209829627-8354782f-8352-42d6-b94a-aaa9c8af6db7.png)
 
 
-
+We can then analyse the recovered core using the [crash utility](crash.md)
