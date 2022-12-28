@@ -117,3 +117,61 @@ kexec --type zImage -p /root/kexec/zImage --dtb=/root/kexec/stm32mp157a-dk1.dtb
 --command-line="console=ttySTM0,115200n8 maxcpus=1 reset_devices"
 ```
 
+We then generate a kenel oops with
+
+```sh
+watchdog -T 10 -t 5 /dev/watchdog0
+```
+
+![image](https://user-images.githubusercontent.com/12407183/209828387-fb42842d-cbba-43cb-acd3-96afa122557d.png)
+
+At the end of the crash sequence we can see the dump-capture kernel loading:
+
+![image](https://user-images.githubusercontent.com/12407183/209828676-11ab45b4-ed79-4565-a72e-fb98d54cf1db.png)
+
+
+We can log into this clean kernel and set the ethernet interface
+
+```sh
+# ifconfig
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+# ifconfig eth0 192.168.0.101
+[  247.860640] stm32-dwmac 5800a000.ethernet eth0: PHY [stmmac-0:00] driver [Generic PHY] (irq=POLL)
+[  247.868450] stm32-dwmac 5800a000.ethernet eth0: Register MEM_TYPE_PAGE_POOL RxQ-0
+[  248.884129] stm32-dwmac 5800a000.ethernet: Failed to reset the dma
+[  248.888877] stm32-dwmac 5800a000.ethernet eth0: stmmac_hw_setup: DMA engine initialization failed
+[  248.898249] stm32-dwmac 5800a000.ethernet eth0: stmmac_open: Hw setup failed
+ifconfig: SIOCSIFFLAGS: Connection timed out
+# ifconfig eth0 192.168.0.101
+[  265.216671] stm32-dwmac 5800a000.ethernet eth0: PHY [stmmac-0:00] driver [Generic PHY] (irq=POLL)
+[  265.224447] stm32-dwmac 5800a000.ethernet eth0: Register MEM_TYPE_PAGE_POOL RxQ-0
+[  265.242953] dwmac4: Master AXI performs any burst length
+[  265.246925] stm32-dwmac 5800a000.ethernet eth0: No Safety Features support found
+[  265.254621] stm32-dwmac 5800a000.ethernet eth0: IEEE 1588-2008 Advanced Timestamp supported
+[  265.262932] stm32-dwmac 5800a000.ethernet eth0: registered PTP clock
+[  265.270106] stm32-dwmac 5800a000.ethernet eth0: configuring for phy/rgmii-id link mode
+# [  268.406915] stm32-dwmac 5800a000.ethernet eth0: Link is Up - 1Gbps/Full - flow control rx/tx
+[  268.413989] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+
+```
+
+**Note**: We use 192.168.0.101 to avoid cloberring ssh know_hosts file for the 192.168.0.100 entry and we may also have to run the command to set the IP address twice  because of some init issues after kexec boot.
+
+We can retrieve the crashed core with the following command run on the host machine
+
+```sh
+ scp root@192.168.0.101:/proc/vmcore ./vmcore
+```
+
+![image](https://user-images.githubusercontent.com/12407183/209829627-8354782f-8352-42d6-b94a-aaa9c8af6db7.png)
+
+
+
