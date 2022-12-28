@@ -1,6 +1,10 @@
 
 # Crash Utility
 
+## References
+
+- [man page](https://man7.org/linux/man-pages/man8/crash.8.html#:~:text=Crash%20is%20a%20tool%20for,xendump%20kvmdump%20or%20VMware%20facilities.)
+
 ## Building the Crash Program for ARM
 
 Install the dependecies
