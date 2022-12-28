@@ -5,7 +5,7 @@
 Install the dependecies
 
 ```sh
-sudo apt install gcc-multilib g++-multilib lib32z1-dev lib32ncurses5-dev texinfo
+sudo apt install gcc-multilib g++-multilib lib32z1-dev lib32ncurses5-dev texinfo flex bison
 ```
 
 Download the crash utility
