@@ -1,6 +1,7 @@
 
-# Building the Crash Utility
+# Crash Utility
 
+## Building the Crash Program for ARM
 
 Install the dependecies
 
@@ -16,6 +17,7 @@ cd ./crash-utility
 make target=ARM #to build for our target
 ```
 
+## Anaylsing the Core
 
 We can load a vmcore with
 
